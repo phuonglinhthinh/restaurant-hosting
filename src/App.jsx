@@ -16,19 +16,19 @@ function App() {
   // Function to render the selected page
   const renderPage = () => {
     switch (currentPage) {
-      case "dashboard":
+      case "Dashboard":
         return <Dashboard />;
-      case "reservations":
+      case "Reservations":
         return <Reservations />;
-      case "waitlist":
+      case "Waitlist":
         return <Waitlist />;
-      case "orders":
+      case "Orders":
         return <Orders />;
-      case "menu":
+      case "Menu":
         return <Menu />;
-      case "staffs":
+      case "Staffs":
         return <Staffs />;
-      case "settings":
+      case "Settings":
         return <Settings />;
       default:
         return <Dashboard />;

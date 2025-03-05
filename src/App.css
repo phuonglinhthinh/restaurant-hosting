@@ -2,6 +2,14 @@
 body {
   margin: 0;
 }
+
+h1,
+h2 {
+  font-family: "dunbar-tall", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
 .app-container {
   display: flex;
   padding: 0;
@@ -12,8 +20,9 @@ body {
   flex-grow: 1;
   background-color: #f9f9f9;
 }
+
 .page {
-    padding: 20px;
+  padding: 20px;
 }
 
 /* Sidebar */
@@ -31,6 +40,9 @@ body {
 
 .sidebar ul li {
   margin: 10px 0;
+  font-family: "dunbar-tall", sans-serif;
+  font-weight: 700;
+  font-style: italic;
 }
 
 .sidebar ul li a {
@@ -46,9 +58,6 @@ body {
 
 /* Topbar */
 .topbar {
-  /* display: flex; */
-  /* justify-content: space-between; */
-  /* align-items: center; */
   background: #ccc;
   padding: 10px 20px;
 }
