@@ -78,7 +78,87 @@ h2 {
   border-radius: 8px;
   flex: 1;
 }
+/* Reservation */
+.reservation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.reservation-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.tables-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.table-box {
+  background-color: lightgray;
+  border-radius: 8px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.table-box:hover {
+  background-color: gray;
+  color: white;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  width: 400px;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-content input,
+.modal-content select {
+  padding: 5px;
+}
+
+.modal-content button[type="submit"] {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #FF4411;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
 /* #root {
   max-width: 1280px;
   margin: 0 auto;
