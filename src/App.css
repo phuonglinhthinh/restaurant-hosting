@@ -78,48 +78,45 @@ h2 {
   border-radius: 8px;
   flex: 1;
 }
-/* Reservation */
-.reservation-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* Waitlist */
+.page {
+  padding: 20px;
 }
 
-.reservation-actions {
-  display: flex;
-  gap: 10px;
+.waitlist-table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.tables-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 15px;
+.waitlist-table th,
+.waitlist-table td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.add-customer-button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
   margin-top: 20px;
 }
 
-.table-box {
-  background-color: lightgray;
-  border-radius: 8px;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  font-weight: bold;
+.add-customer-button:hover {
+  background-color: #45a049;
 }
 
-.table-box:hover {
-  background-color: gray;
-  color: white;
-}
-
+/* Modal Styles */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -127,37 +124,123 @@ h2 {
 
 .modal-content {
   background: white;
-  padding: 30px;
-  border-radius: 10px;
+  padding: 20px;
+  border-radius: 5px;
   width: 400px;
-  position: relative;
 }
 
 .close-button {
   position: absolute;
-  right: 15px;
   top: 10px;
+  right: 10px;
+  font-size: 20px;
   cursor: pointer;
 }
 
-.modal-content form {
+form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
 }
 
-.modal-content input,
-.modal-content select {
-  padding: 5px;
+form label {
+  margin: 10px 0;
+}
+/* Reservation */
+/* TableManagement.css */
+.page {
+  padding: 20px;
 }
 
-.modal-content button[type="submit"] {
-  margin-top: 15px;
+.tables-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.table-card {
+  width: 200px;
   padding: 10px;
-  background-color: #FF4411;
-  border: none;
-  color: white;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.table-card.assigned {
+  background-color: #d1f7d1;
+}
+
+.table-card.available {
+  background-color: #f7d1d1;
+}
+
+.table-info {
+  margin-bottom: 10px;
+}
+
+.table-number {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.customer-info {
+  font-size: 0.9em;
+}
+
+.actions {
+  margin-top: 10px;
+}
+
+.actions button {
+  padding: 5px;
+  margin-top: 5px;
+}
+
+.order-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 400px;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
   cursor: pointer;
+}
+
+.menu-items {
+  margin-bottom: 15px;
+}
+
+.order-summary {
+  margin-top: 20px;
+}
+
+.modal-actions button {
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.modal-actions button:hover {
+  background-color: #45a049;
 }
 /* #root {
   max-width: 1280px;
