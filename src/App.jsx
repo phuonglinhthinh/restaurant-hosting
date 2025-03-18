@@ -6,8 +6,9 @@ import Reservations from "./components/Reservations";
 import Waitlist from "./components/Waitlist";
 import Orders from "./components/Orders";
 import Menu from "./components/Menu";
-import Staffs from "./components/Staffs";
+import Archive from "./components/Archive";
 import Settings from "./components/Settings";
+import { CustomerProvider } from "./CustomerContext";
 import "./App.css";
 
 function App() {
@@ -27,7 +28,7 @@ function App() {
       case "Menu":
         return <Menu />;
       case "Staffs":
-        return <Staffs />;
+        return <Archive />;
       case "Settings":
         return <Settings />;
       default:
@@ -36,13 +37,15 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      <Sidebar setCurrentPage={setCurrentPage} />
-      <div className="main-content">
-        <Topbar currentPage={currentPage} />
-        {renderPage()}
+    <CustomerProvider>
+      <div className="app-container">
+        <Sidebar setCurrentPage={setCurrentPage} />
+        <div className="main-content">
+          <Topbar currentPage={currentPage} />
+          {renderPage()}
+        </div>
       </div>
-    </div>
+    </CustomerProvider>
   );
 }
 

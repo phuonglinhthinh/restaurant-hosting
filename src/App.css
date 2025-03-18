@@ -4,10 +4,16 @@ body {
 }
 
 h1,
-h2 {
+h2, h3 {
   font-family: "dunbar-tall", sans-serif;
   font-weight: 700;
   font-style: italic;
+}
+
+p {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .app-container {
@@ -18,18 +24,18 @@ h2 {
 
 .main-content {
   flex-grow: 1;
-  background-color: #f9f9f9;
+  background-color: #fbe9df;
 }
 
 .page {
-  padding: 20px;
+  padding: 0 2.5rem;
 }
 
 /* Sidebar */
 .sidebar {
-  width: 250px;
-  background: #FF4411;
-  padding: 20px;
+  width: 150px;
+  background: #F7F4F3;
+  padding: 2rem;
   height: 100vh;
 }
 
@@ -43,6 +49,7 @@ h2 {
   font-family: "dunbar-tall", sans-serif;
   font-weight: 700;
   font-style: italic;
+  font-size: 1.2rem;
 }
 
 .sidebar ul li a {
@@ -58,8 +65,8 @@ h2 {
 
 /* Topbar */
 .topbar {
-  background: #ccc;
-  padding: 10px 20px;
+  background: #fbe9df;
+  padding: 3rem 2.5rem 1rem 2.5rem;
 }
 
 .topbar-icons {
@@ -73,16 +80,13 @@ h2 {
 }
 
 .dashboard-content div {
-  background: grey;
-  padding: 20px;
+  background-color: #F7F4F3;
+  padding: 2.5rem;
   border-radius: 8px;
   flex: 1;
 }
-/* Waitlist */
-.page {
-  padding: 20px;
-}
 
+/* Waitlist */
 .waitlist-table {
   width: 100%;
   border-collapse: collapse;
@@ -145,12 +149,8 @@ form {
 form label {
   margin: 10px 0;
 }
-/* Reservation */
-/* TableManagement.css */
-.page {
-  padding: 20px;
-}
 
+/* Reservation */
 .tables-container {
   display: flex;
   flex-wrap: wrap;
@@ -162,15 +162,16 @@ form label {
   padding: 10px;
   background-color: #f0f0f0;
   border-radius: 5px;
-  border: 1px solid #ddd;
+  border: 3px solid #ff5500;
 }
 
 .table-card.assigned {
-  background-color: #d1f7d1;
+  background-color: #ff5500;
+  color: rgb(249, 244, 244);
 }
 
 .table-card.available {
-  background-color: #f7d1d1;
+  background-color: #faf2ed;
 }
 
 .table-info {
@@ -242,6 +243,7 @@ form label {
 .modal-actions button:hover {
   background-color: #45a049;
 }
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;
