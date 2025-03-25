@@ -1,14 +1,15 @@
-import { useState } from "react"; 
+import { useState } from "react";
 import { useCustomer } from "../CustomerContext";
 
 function Waitlist() {
     const { waitlist, assignCustomerToTable, tables } = useCustomer();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [editCustomer, setEditCustomer] = useState(null);
+    const [editCustomer, setEditCustomer] = useState(false);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [newCustomer, setNewCustomer] = useState({
         customerName: "",
         size: "",
+        tablePreference: "",
         time: "",
         specialRequest: "",
     });
@@ -68,6 +69,7 @@ function Waitlist() {
         setNewCustomer({
             customerName: "",
             size: "",
+            tablePreference: "",
             time: "",
             specialRequest: "",
         }); // Reset the form fields
@@ -87,7 +89,7 @@ function Waitlist() {
                     <tr>
                         <th>Customer</th>
                         <th>Size</th>
-                        <th>Notes</th>
+                        <th>Table Preference</th>
                         <th>Special Request</th>
                         <th>Time</th>
                         <th>Date</th>
@@ -99,14 +101,14 @@ function Waitlist() {
                         <tr key={customer.id}>
                             <td>{customer.customerName}</td>
                             <td>{customer.size}</td>
-                            <td>{customer.note}</td>
+                            <td>{customer.tablePreference}</td>
                             <td>{customer.specialRequest}</td>
                             <td>{customer.time}</td>
                             <td>{customer.date}</td>
                             <td>
-                                <button onClick={() => handleAssign(customer.id)}>✔️</button>
-                                <button onClick={() => handleCancel(customer.id)}>❌ Cancel</button>
-                                <button onClick={() => handleEdit(customer.id)}>✏️ Edit</button>
+                                <button onClick={() => handleAssign(customer.id)}>✔ Assign to table</button>
+                                <button onClick={() => handleCancel(customer.id)}>✘ Cancel</button>
+                                <button onClick={() => handleEdit(customer.id)}>✎ Edit</button>
                             </td>
                         </tr>
                     ))}
@@ -123,34 +125,55 @@ function Waitlist() {
                         <h3>Edit Customer Information</h3>
                         <form>
                             <label>
-                                Customer's Name:
+                                <p>Customer's Name:</p>
                                 <input
                                     type="text"
                                     name="customerName"
                                     value={editCustomer.customerName}
                                     onChange={handleInputChange}
+                                    size="40"
+                                    placeholder="Jane Smith"
                                 />
                             </label>
                             <label>
-                                Party Size:
-                                <input
-                                    type="number"
+                                <p>Party Size:</p>
+                                <select
                                     name="size"
                                     value={editCustomer.size}
                                     onChange={handleInputChange}
-                                />
+                                >
+                                    <option value="1">1 person</option>
+                                    <option value="2">2 people</option>
+                                    <option value="4">4 people</option>
+                                    <option value="6">6 people</option>
+                                </select>
                             </label>
                             <label>
-                                Special Request (Outside/Inside):
+                                <p>Table Preference (Outside/Inside/Window):</p>
+                                <select
+                                    name="tablePreference"
+                                    value={editCustomer.tablePreference}
+                                    onChange={handleInputChange}
+                                >
+                                    <option value="no prefernce">No Preference</option>
+                                    <option value="outside">Outside</option>
+                                    <option value="inside">Inside</option>
+                                    <option value="window">Window</option>
+                                </select>
+                            </label>
+                            <label>
+                                <p>Special Request</p>
                                 <input
                                     type="text"
                                     name="specialRequest"
                                     value={editCustomer.specialRequest}
                                     onChange={handleInputChange}
+                                    placeholder="birthday, ceremony, wheelchair, etc"
+                                    size="40"
                                 />
                             </label>
                             <label>
-                                Time:
+                                <p>Time:</p>
                                 <input
                                     type="time"
                                     name="time"
@@ -159,7 +182,7 @@ function Waitlist() {
                                 />
                             </label>
                             <label>
-                                Date:
+                                <p>Date:</p>
                                 <input
                                     type="date"
                                     name="date"
@@ -167,7 +190,7 @@ function Waitlist() {
                                     onChange={handleInputChange}
                                 />
                             </label>
-                            <button type="button" onClick={handleSaveEdit}>
+                            <button className="custom-button" type="button" onClick={handleSaveEdit}>
                                 Save Changes
                             </button>
                             <button type="button" onClick={() => setIsEditModalOpen(false)}>
@@ -177,7 +200,7 @@ function Waitlist() {
                     </div>
                 </div>
             )}
-            
+
             {/* Add New Customer Modal */}
             {isAddModalOpen && (
                 <div className="modal">
@@ -188,34 +211,55 @@ function Waitlist() {
                         <h3>Add New Customer</h3>
                         <form>
                             <label>
-                                Customer's Name:
+                                <p>Customer's Name:</p>
                                 <input
                                     type="text"
                                     name="customerName"
                                     value={newCustomer.customerName}
                                     onChange={handleAddInputChange}
+                                    size="40"
+                                    placeholder="Jane Smith"
                                 />
                             </label>
                             <label>
-                                Party Size:
-                                <input
-                                    type="number"
+                                <p>Party Size:</p>
+                                <select
                                     name="size"
-                                    value={newCustomer.size}
-                                    onChange={handleAddInputChange}
-                                />
+                                    value={editCustomer.size}
+                                    onChange={handleInputChange}
+                                >
+                                    <option value="1">1 person</option>
+                                    <option value="2">2 people</option>
+                                    <option value="4">4 people</option>
+                                    <option value="6">6 people</option>
+                                </select>
                             </label>
                             <label>
-                                Special Request (Outside/Inside):
+                                <p>Table Preference (Outside/Inside/Window):</p>
+                                <select
+                                    name="tablePreference"
+                                    value={editCustomer.tablePreference}
+                                    onChange={handleInputChange}
+                                >
+                                    <option value="no prefernce">No Preference</option>
+                                    <option value="outside">Outside</option>
+                                    <option value="inside">Inside</option>
+                                    <option value="window">Window</option>
+                                </select>
+                            </label>
+                            <label>
+                                <p>Special Request:</p>
                                 <input
                                     type="text"
                                     name="specialRequest"
                                     value={newCustomer.specialRequest}
                                     onChange={handleAddInputChange}
+                                    placeholder="birthday, ceremony, wheelchair, etc"
+                                    size="40"
                                 />
                             </label>
                             <label>
-                                Time:
+                                <p>Time:</p>
                                 <input
                                     type="time"
                                     name="time"
@@ -224,7 +268,7 @@ function Waitlist() {
                                 />
                             </label>
                             <label>
-                                Date:
+                                <p>Date:</p>
                                 <input
                                     type="date"
                                     name="date"
@@ -232,7 +276,7 @@ function Waitlist() {
                                     onChange={handleAddInputChange}
                                 />
                             </label>
-                            <button type="button" onClick={handleAddNewCustomer}>
+                            <button className="custom-button" type="button" onClick={handleAddNewCustomer}>
                                 Add Customer
                             </button>
                             <button type="button" onClick={() => setIsAddModalOpen(false)}>
@@ -244,7 +288,7 @@ function Waitlist() {
             )}
 
             {/* Add New Customer Button */}
-            <button onClick={() => setIsAddModalOpen(true)}>+ Add New Customer</button>
+            <button className="custom-button" onClick={() => setIsAddModalOpen(true)}>+ Add New Customer</button>
         </div>
     );
 }

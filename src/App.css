@@ -3,8 +3,16 @@ body {
   margin: 0;
 }
 
+:root {
+  --primary-color: black;
+  --primary-color-2: white;
+  --secondary-color: orange;
+  --secondary-color-2: #fbe9df;
+}
+
 h1,
-h2, h3 {
+h2,
+h3 {
   font-family: "dunbar-tall", sans-serif;
   font-weight: 700;
   font-style: italic;
@@ -14,6 +22,26 @@ p {
   font-family: "Lato", sans-serif;
   font-weight: 400;
   font-style: normal;
+  margin-bottom: .5rem;
+}
+
+button {
+  padding: 1rem;
+  margin: .25rem;
+  font-size: 1rem;
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: var(--primary-color);
+  color: var(--primary-color-2);
+}
+
+select,
+input {
+  padding: .5rem;
+  font-size: 1rem;
 }
 
 .app-container {
@@ -24,7 +52,7 @@ p {
 
 .main-content {
   flex-grow: 1;
-  background-color: #fbe9df;
+  background-color: var(--secondary-color-2);
 }
 
 .page {
@@ -44,28 +72,25 @@ p {
   padding: 0;
 }
 
-.sidebar ul li {
+.sidebar__link {
   margin: 10px 0;
   font-family: "dunbar-tall", sans-serif;
   font-weight: 700;
   font-style: italic;
   font-size: 1.2rem;
-}
-
-.sidebar ul li a {
   text-decoration: none;
   color: black;
   display: block;
   padding: 10px;
 }
 
-.sidebar ul li a:hover {
-  background: #bbb;
+.sidebar__link:hover {
+  background-color: #bbb;
 }
 
 /* Topbar */
 .topbar {
-  background: #fbe9df;
+  background-color: var(--secondary-color-2);
   padding: 3rem 2.5rem 1rem 2.5rem;
 }
 
@@ -96,12 +121,23 @@ p {
 .waitlist-table td {
   padding: 8px;
   text-align: left;
-  border: 1px solid #ddd;
+  font-family: "Lato", sans-serif;
+  font-style: normal;
+  border-style: none;
+  border-bottom: 1px solid var(--primary-color);
 }
 
-.add-customer-button {
-  padding: 10px;
-  background-color: #4CAF50;
+.waitlist-table tr:hover {
+  background-color: rgb(255, 254, 254);
+}
+
+.waitlist-table th {
+  background-color: #000000;
+  color: white;
+}
+
+.custom-button {
+  background-color: #000000;
   color: white;
   border: none;
   cursor: pointer;
@@ -109,8 +145,8 @@ p {
   margin-top: 20px;
 }
 
-.add-customer-button:hover {
-  background-color: #45a049;
+.custom-button:hover {
+  background-color: var(--secondary-color);
 }
 
 /* Modal Styles */
@@ -147,7 +183,7 @@ form {
 }
 
 form label {
-  margin: 10px 0;
+  margin: .15rem 0;
 }
 
 /* Reservation */
