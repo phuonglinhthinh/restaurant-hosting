@@ -102,115 +102,129 @@ function TableManagement() {
             {/* Order Modal */}
             {isOrderModalOpen && (
                 <div className="modal">
-                    <div className="modal-content">
+                    <div className="modal-content modal-content--order">
                         <span className="close-button" onClick={closeOrderModal}>
                             &times;
                         </span>
                         <h3>Reservation Details</h3>
-                        <form>
-                            <label>
-                                Guest’s Name:
-                                <input
-                                    type="text"
-                                    value={tables.find((table) => table.tableNumber === selectedTable)?.customer.customerName}
-                                    readOnly
-                                />
-                            </label>
-                            <label>
-                                Table Number:
-                                <input
-                                    type="text"
-                                    value={selectedTable}
-                                    readOnly
-                                />
-                            </label>
-                            <label>
-                                Size:
-                                <input
-                                    type="number"
-                                    value={tables.find((table) => table.tableNumber === selectedTable)?.customer.size}
-                                    readOnly
-                                />
-                            </label>
-                            <label>
-                                Time Left:
-                                <input
-                                    type="text"
-                                    value="30 minutes"
-                                    readOnly
-                                />
-                            </label>
-                            <label>
-                                Special Event:
-                                <input
-                                    type="text"
-                                    value={tables.find((table) => table.tableNumber === selectedTable)?.customer.specialRequest}
-                                    readOnly
-                                />
-                            </label>
-                            <label>
-                                Winner of Contest?
-                                <input
-                                    type="radio"
-                                    name="contestWinner"
-                                    value="yes"
-                                    checked={contestWinner}
-                                    onChange={() => setContestWinner(true)}
-                                />
-                                Yes
-                                <input
-                                    type="radio"
-                                    name="contestWinner"
-                                    value="no"
-                                    checked={!contestWinner}
-                                    onChange={() => setContestWinner(false)}
-                                />
-                                No
-                            </label>
-                        </form>
-                        <h4>Order Items</h4>
-                        <label>
-                            Signature Burgers:
-                            <input
-                                type="checkbox"
-                                onChange={() => handleOrderChange("Classic Cheeseburger", 9.5)}
-                            />
-                            Classic Cheeseburger (€9.50)
-                        </label>
-                        <label>
-                            Sides:
-                            <input
-                                type="checkbox"
-                                onChange={() => handleOrderChange("Onion Rings", 4.5)}
-                            />
-                            Onion Rings (€4.50)
-                        </label>
-                        <label>
-                            Desserts:
-                            <input
-                                type="checkbox"
-                                onChange={() => handleOrderChange("Oreo Cheesecake", 5.0)}
-                            />
-                            Oreo Cheesecake (€5.00)
-                        </label>
-                        <h4>Bill</h4>
-                        <div>
-                            {Object.keys(currentOrder).map((item) =>
-                                item !== "total" ? (
-                                    <p key={item}>
-                                        {item} x{currentOrder[item]} = €{(currentOrder[item] * 9.5).toFixed(2)}
-                                    </p>
-                                ) : null
-                            )}
+                        <div className="order__container">
+                            <form className="order__form">
+                                <label>
+                                    <p>Guest’s Name:</p>
+                                    <input
+                                        type="text"
+                                        value={tables.find((table) => table.tableNumber === selectedTable)?.customer.customerName}
+                                        readOnly
+                                    />
+                                </label>
+                                <label>
+                                    <p>Table Number:</p>
+                                    <input
+                                        type="text"
+                                        value={selectedTable}
+                                        readOnly
+                                    />
+                                </label>
+                                <label>
+                                    <p>Size:</p>
+                                    <input
+                                        type="number"
+                                        value={tables.find((table) => table.tableNumber === selectedTable)?.customer.size}
+                                        readOnly
+                                    />
+                                </label>
+                                <label>
+                                    <p>Time Left:</p>
+                                    <input
+                                        type="text"
+                                        value="30 minutes"
+                                        readOnly
+                                    />
+                                </label>
+                                <label>
+                                    <p>Special Event:</p>
+                                    <input
+                                        type="text"
+                                        value={tables.find((table) => table.tableNumber === selectedTable)?.customer.specialRequest}
+                                        readOnly
+                                    />
+                                </label>
+                                <label>
+                                    <h4>Winner of Contest?</h4>
+                                    <input
+                                        type="radio"
+                                        name="contestWinner"
+                                        value="yes"
+                                        checked={contestWinner}
+                                        onChange={() => setContestWinner(true)}
+                                    />
+                                    Yes
+                                    <input
+                                        type="radio"
+                                        name="contestWinner"
+                                        value="no"
+                                        checked={!contestWinner}
+                                        onChange={() => setContestWinner(false)}
+                                    />
+                                    No
+                                </label>
+                            </form>
+                            <div className="menu">
+                                <h4>Order Items</h4>
+                                <label>
+                                    <p>Signature Burgers:</p>
+                                    <input
+                                        type="checkbox"
+                                        onChange={() => handleOrderChange("Classic Cheeseburger", 9.5)}
+                                    />
+                                    Classic Cheeseburger (€9.50)
+                                    <input
+                                        type="checkbox"
+                                        onChange={() => handleOrderChange("Classic Cheeseburger", 11)}
+                                    />
+                                    Smokey BBQ Burger (€11.00)
+                                </label>
+                                <label>
+                                    <p>Sides:</p>
+                                    <input
+                                        type="checkbox"
+                                        onChange={() => handleOrderChange("Onion Rings", 4.5)}
+                                    />
+                                    Onion Rings (€4.50)
+                                </label>
+                                <label>
+                                    <p>Desserts:</p>
+                                    <input
+                                        type="checkbox"
+                                        onChange={() => handleOrderChange("Oreo Cheesecake", 5.0)}
+                                    />
+                                    Oreo Cheesecake (€5.00)
+                                </label>
+                            </div>
+                            <div className="bill">
+                                <h4>Bill</h4>
+                                <div>
+                                    {Object.keys(currentOrder).map((item) =>
+                                        item !== "total" ? (
+                                            <p key={item}>
+                                                {item} x{currentOrder[item]} = €{(currentOrder[item] * 9.5).toFixed(2)}
+                                            </p>
+                                        ) : null
+                                    )}
+                                </div>
+                                <p>Discount: €{contestWinner ? 10.0 : 0.0}</p>
+                                <p>Total Amount: €{(currentOrder.total || 0) - (contestWinner ? 10.0 : 0.0)}</p>
+                            </div>
+                            <div className="order__action">
+                                <button type="button" onClick={saveOrder}>Save</button>
+                                <button type="button" onClick={printAndCheckout}>Print and Checkout</button>
+                            </div>
                         </div>
-                        <p>Discount: €{contestWinner ? 10.0 : 0.0}</p>
-                        <p>Total Amount: €{(currentOrder.total || 0) - (contestWinner ? 10.0 : 0.0)}</p>
-                        <button type="button" onClick={saveOrder}>Save</button>
-                        <button type="button" onClick={printAndCheckout}>Print and Checkout</button>
                     </div>
-                </div>
-            )}
-        </div>
+                </div >
+            )
+            }
+        </div >
     );
 }
 

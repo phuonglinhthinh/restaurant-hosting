@@ -6,7 +6,8 @@ body {
 :root {
   --primary-color: black;
   --primary-color-2: white;
-  --secondary-color: orange;
+  --primary-color-3: #F7F4F3;
+  --secondary-color: #ff5500;
   --secondary-color-2: #fbe9df;
 }
 
@@ -62,7 +63,7 @@ input {
 /* Sidebar */
 .sidebar {
   width: 150px;
-  background: #F7F4F3;
+  background: var(--primary-color-3);
   padding: 2rem;
   height: 100vh;
 }
@@ -79,13 +80,14 @@ input {
   font-style: italic;
   font-size: 1.2rem;
   text-decoration: none;
-  color: black;
+  color: var(--primary-color);
   display: block;
   padding: 10px;
 }
 
 .sidebar__link:hover {
-  background-color: #bbb;
+  color: #ff5500;
+  cursor: pointer;
 }
 
 /* Topbar */
@@ -105,7 +107,7 @@ input {
 }
 
 .dashboard-content div {
-  background-color: #F7F4F3;
+  background-color: var(--primary-color-3);
   padding: 2.5rem;
   border-radius: 8px;
   flex: 1;
@@ -128,17 +130,17 @@ input {
 }
 
 .waitlist-table tr:hover {
-  background-color: rgb(255, 254, 254);
+  background-color: var(--primary-color-3);
 }
 
 .waitlist-table th {
-  background-color: #000000;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--primary-color-2);
 }
 
 .custom-button {
-  background-color: #000000;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--primary-color-2);
   border: none;
   cursor: pointer;
   border-radius: 5px;
@@ -163,10 +165,13 @@ input {
 }
 
 .modal-content {
-  background: white;
+  background: var(--primary-color-2);
   padding: 20px;
   border-radius: 5px;
   width: 400px;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
 .close-button {
@@ -186,7 +191,7 @@ form label {
   margin: .15rem 0;
 }
 
-/* Reservation */
+/* Table Management*/
 .tables-container {
   display: flex;
   flex-wrap: wrap;
@@ -196,18 +201,18 @@ form label {
 .table-card {
   width: 200px;
   padding: 10px;
-  background-color: #f0f0f0;
+  background-color: var(--primary-color-3);
   border-radius: 5px;
-  border: 3px solid #ff5500;
+  border: 3px solid var(--secondary-color);
 }
 
 .table-card.assigned {
-  background-color: #ff5500;
-  color: rgb(249, 244, 244);
+  background-color: var(--secondary-color);
+  color: var(--primary-color-3);
 }
 
 .table-card.available {
-  background-color: #faf2ed;
+  background-color: var(--primary-color-3);
 }
 
 .table-info {
@@ -232,23 +237,8 @@ form label {
   margin-top: 5px;
 }
 
-.order-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 5px;
-  width: 400px;
+.modal-content--order {
+  width: 1000px;
 }
 
 .close-button {
@@ -270,16 +260,30 @@ form label {
 .modal-actions button {
   padding: 10px;
   margin-top: 10px;
-  background-color: #4CAF50;
-  color: white;
+  background-color: var(--secondary-color);
+  color: var(--primary-color-2);
   border: none;
   cursor: pointer;
 }
 
 .modal-actions button:hover {
-  background-color: #45a049;
+  background-color: var(--secondary-color);
 }
 
+.order__container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.order__action {
+  grid-column: 3;
+}
+.bill {
+  background: var(--secondary-color);
+  color: var(--primary-color-2);
+  padding: 1rem;
+  border-radius: 15px;
+}
 /* #root {
   max-width: 1280px;
   margin: 0 auto;
