@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useCustomer } from "../CustomerContext";
 
 function TableManagement() {
-    const { tables, assignCustomerToTable } = useCustomer();
+    const { tables, waitlist, assignCustomerToTable } = useCustomer();
     const [currentOrder, setCurrentOrder] = useState({});
     const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
     const [selectedTable, setSelectedTable] = useState(null);
@@ -43,7 +43,7 @@ function TableManagement() {
                 }
                 : table
         );
-        assignCustomerToTable(updatedTables);
+        assignCustomerToTable(waitlist, updatedTables);
         closeOrderModal();
     };
 
@@ -60,7 +60,7 @@ function TableManagement() {
                 }
                 : table
         );
-        assignCustomerToTable(updatedTables);
+        assignCustomerToTable(waitlist, updatedTables);
         closeOrderModal();
     };
 
