@@ -43,6 +43,13 @@ export const CustomerProvider = ({ children }) => {
         }))
     );
 
+    const itemPrices = {
+        "Classic Cheeseburger": 9.5,
+        "Smokey BBQ Burger": 11.0,
+        "Onion Rings": 4.5,
+        "Oreo Cheesecake": 5.0,
+    };
+
     // Function to assign a customer to a table
     const assignCustomerToTable = (updatedWaitlist, updatedTables) => {
         setWaitlist(updatedWaitlist);
@@ -52,7 +59,7 @@ export const CustomerProvider = ({ children }) => {
 
 
     return (
-        <CustomerContext.Provider value={{ waitlist, tables, assignCustomerToTable }}>
+        <CustomerContext.Provider value={{ waitlist, tables, assignCustomerToTable, itemPrices }}>
             {children}
         </CustomerContext.Provider>
     );
