@@ -1,8 +1,7 @@
 function Orders() {
     return (
         <div className="page">
-            <h2>Orders</h2>
-            <p>View and manage customer orders.</p>
+            <p>You can see new customer's order here and let the kitchen knows to prepare the order.</p>
         </div>
     );
 }
