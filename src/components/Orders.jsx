@@ -19,12 +19,12 @@ function Orders() {
 
     return (
         <div className="page">
-            <p>Please wait while the kitchen is preparing your orders</p>
+            <p>The kitchen is preparing your orders. Be patient!</p>
             {groupedOrders.length > 0 ? (
                 <div className="orders-list">
                     {groupedOrders.map((order, index) => (
                         <div key={index} className="order-item">
-                            <h4>Table {order.tableNumber} - {order.customerName}</h4>
+                            <h3>Table {order.tableNumber} - {order.customerName}</h3>
                             <ul>
                                 {Object.keys(order.itemCounts).map((item) => (
                                     <li key={item}>

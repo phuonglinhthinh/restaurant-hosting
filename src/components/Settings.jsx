@@ -1,8 +1,7 @@
 function Settings() {
     return (
         <div className="page">
-            <h2>Settings</h2>
-            <p>Adjust application preferences.</p>
+            <p>You logged in. <br />Adjust application preferences and more (in the future).</p>
         </div>
     );
 }

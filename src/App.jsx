@@ -2,7 +2,7 @@ import { useState } from "react";
 import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
 import Dashboard from "./components/Dashboard";
-import Reservations from "./components/TableManagement";
+import TableManagement from "./components/TableManagement";
 import Waitlist from "./components/Waitlist";
 import Orders from "./components/Orders";
 import Menu from "./components/Menu";
@@ -10,7 +10,6 @@ import Archive from "./components/Archive";
 import Settings from "./components/Settings";
 import { CustomerProvider } from "./CustomerContext";
 import "./App.css";
-import TableManagement from "./components/TableManagement";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("Dashboard");
@@ -28,7 +27,7 @@ function App() {
         return <Orders />;
       case "Menu":
         return <Menu />;
-      case "Staffs":
+      case "Archive":
         return <Archive />;
       case "Settings":
         return <Settings />;

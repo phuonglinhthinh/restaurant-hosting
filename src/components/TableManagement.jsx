@@ -21,21 +21,18 @@ function TableManagement() {
     };
 
     // Handle order item changes
-    const handleOrderChange = (item) => {
+    const handleOrderChange = (item, action) => {
         // const price = itemPrices[item];
         setCurrentOrder((prevOrder) => {
             const updatedOrder = { ...prevOrder };
 
             // Check if the item is already in the order
-            if (updatedOrder[item]) {
-                // If item is already checked, uncheck it (decrease count)
+            if (action === "add") {
+                updatedOrder[item] = updatedOrder[item] ? updatedOrder[item] + 1 : 1;
+            } else if (action === "subtract" && updatedOrder[item] > 1) {
                 updatedOrder[item] = updatedOrder[item] - 1;
-                if (updatedOrder[item] <= 0) {
-                    delete updatedOrder[item];  // Remove item from order if count is 0
-                }
-            } else {
-                // If the item is not in the order, add it (set count to 1)
-                updatedOrder[item] = 1;
+            } else if (action === "subtract" && updatedOrder[item] === 1) {
+                delete updatedOrder[item];  // Remove item from order if count is 0
             }
 
             // Recalculate the total based on the updated order
@@ -185,7 +182,7 @@ function TableManagement() {
                                     />
                                 </label>
                                 <label>
-                                    <h4>Winner of Contest?</h4>
+                                    <h4>Winner of Burger Contest?</h4>
                                     <input
                                         type="radio"
                                         name="contestWinner"
@@ -208,32 +205,21 @@ function TableManagement() {
                                 <h4>Order Items</h4>
                                 <label>
                                     <p>Signature Burgers:</p>
-                                    <input
-                                        type="checkbox"
-                                        onChange={() => handleOrderChange("Classic Cheeseburger")}
-                                    />
-                                    Classic Cheeseburger (€{itemPrices["Classic Cheeseburger"]})
-                                    <input
-                                        type="checkbox"
-                                        onChange={() => handleOrderChange("Smokey BBQ Burger")}
-                                    />
-                                    Smokey BBQ Burger (€{itemPrices["Smokey BBQ Burger"]})
+                                    <button onClick={() => handleOrderChange("Classic Cheeseburger", "subtract")}>-</button>
+                                    Classic Cheeseburger
+                                    <button onClick={() => handleOrderChange("Classic Cheeseburger", "add")}>+</button>
                                 </label>
                                 <label>
                                     <p>Sides:</p>
-                                    <input
-                                        type="checkbox"
-                                        onChange={() => handleOrderChange("Onion Rings")}
-                                    />
-                                    Onion Rings (€{itemPrices["Onion Rings"]})
+                                    <button onClick={() => handleOrderChange("Onion Rings", "subtract")}>-</button>
+                                    Onion Rings
+                                    <button onClick={() => handleOrderChange("Onion Rings", "add")}>+</button>
                                 </label>
                                 <label>
                                     <p>Desserts:</p>
-                                    <input
-                                        type="checkbox"
-                                        onChange={() => handleOrderChange("Oreo Cheesecake")}
-                                    />
-                                    Oreo Cheesecake (€{itemPrices["Oreo Cheesecake"]})
+                                    <button onClick={() => handleOrderChange("Oreo Cheesecake", "subtract")}>-</button>
+                                    Oreo Cheesecake
+                                    <button onClick={() => handleOrderChange("Oreo Cheesecake", "add")}>+</button>
                                 </label>
                             </div>
                             <div className="bill">
@@ -251,9 +237,9 @@ function TableManagement() {
                                 <p>Total Amount: €{(currentOrder.total || 0) - (contestWinner ? 10.0 : 0.0)}</p>
                             </div>
                             <div className="order__action">
-                                <button type="button" onClick={prepareOrders}>Prepare the Order</button>
-                                <button type="button" onClick={saveOrder}>Save</button>
-                                <button type="button" onClick={printAndCheckout}>Print and Checkout</button>
+                                <button onClick={prepareOrders}>Prepare the Order</button>
+                                <button onClick={saveOrder}>Save</button>
+                                <button onClick={printAndCheckout}>Print and Checkout</button>
                             </div>
                         </div>
                     </div>

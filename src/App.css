@@ -4,11 +4,8 @@ body {
 }
 
 :root {
-  --primary-color: black;
-  --primary-color-2: white;
-  --primary-color-3: #F7F4F3;
-  --secondary-color: #ff5500;
-  --secondary-color-2: #fbe9df;
+  --primary-color: rgb(0, 149, 255);
+  --secondary-color: rgb(249, 249, 242);
 }
 
 h1,
@@ -17,6 +14,7 @@ h3 {
   font-family: "dunbar-tall", sans-serif;
   font-weight: 700;
   font-style: italic;
+  color: var(--primary-color);
 }
 
 p {
@@ -30,19 +28,28 @@ button {
   padding: 1rem;
   margin: .25rem;
   font-size: 1rem;
-  border: 1px solid var(--primary-color);
+  border: 2px solid var(--primary-color);
   border-radius: 5px;
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
 }
 
 button:hover {
   background-color: var(--primary-color);
-  color: var(--primary-color-2);
+  color: var(--secondary-color);
 }
 
-select,
-input {
+select, input{
   padding: .5rem;
   font-size: 1rem;
+  color: var(--primary-color);
+  border: 2px solid rgb(183, 182, 182);
+  border-radius: 5px;
+}
+select, input:focus {
+  border: 2px solid var(--primary-color);
+  border-radius: 5px;
+  outline: none;
 }
 
 .app-container {
@@ -53,19 +60,23 @@ input {
 
 .main-content {
   flex-grow: 1;
-  background-color: var(--secondary-color-2);
+  background-color: var(--secondary-color);
 }
 
 .page {
-  padding: 0 2.5rem;
+  padding: 1rem 2.5rem;
+  color: var(--primary-color);
 }
 
 /* Sidebar */
 .sidebar {
-  width: 150px;
-  background: var(--primary-color-3);
-  padding: 2rem;
+  width: 155px;
+  background: var(--primary-color);
   height: 100vh;
+  padding: 2rem 2rem 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .sidebar ul {
@@ -78,21 +89,27 @@ input {
   font-family: "dunbar-tall", sans-serif;
   font-weight: 700;
   font-style: italic;
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-decoration: none;
-  color: var(--primary-color);
-  display: block;
-  padding: 10px;
+  color: var(--secondary-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+  border: 2px solid var(--primary-color);
 }
 
 .sidebar__link:hover {
-  color: #ff5500;
+  border-top: 2px solid var(--secondary-color);
+  border-bottom: 2px solid var(--secondary-color);
   cursor: pointer;
 }
 
 /* Topbar */
 .topbar {
-  background-color: var(--secondary-color-2);
+  color: var(--primary-color);
+  background-color: var(--secondary-color);
   padding: 3rem 2.5rem 1rem 2.5rem;
 }
 
@@ -107,7 +124,7 @@ input {
 }
 
 .dashboard-content div {
-  background-color: var(--primary-color-3);
+  border: 2px solid var(--primary-color);
   padding: 2.5rem;
   border-radius: 8px;
   flex: 1;
@@ -130,25 +147,24 @@ input {
 }
 
 .waitlist-table tr:hover {
-  background-color: var(--primary-color-3);
+  background-color: rgb(232, 245, 255);
 }
 
 .waitlist-table th {
   background-color: var(--primary-color);
-  color: var(--primary-color-2);
+  color: var(--secondary-color);
 }
 
 .custom-button {
-  background-color: var(--primary-color);
-  color: var(--primary-color-2);
-  border: none;
+  border: 2px solid var(--primary-color);
   cursor: pointer;
   border-radius: 5px;
   margin-top: 20px;
 }
 
 .custom-button:hover {
-  background-color: var(--secondary-color);
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
 /* Modal Styles */
@@ -165,9 +181,10 @@ input {
 }
 
 .modal-content {
-  background: var(--primary-color-2);
+  background: var(--secondary-color);
+  border: 2px solid var(--primary-color);
   padding: 20px;
-  border-radius: 5px;
+  border-radius: 15px;
   width: 400px;
   font-family: "Lato", sans-serif;
   font-weight: 400;
@@ -201,18 +218,17 @@ form label {
 .table-card {
   width: 200px;
   padding: 10px;
-  background-color: var(--primary-color-3);
   border-radius: 5px;
-  border: 3px solid var(--secondary-color);
+  border: 3px solid var(--primary-color);
 }
 
 .table-card.assigned {
-  background-color: var(--secondary-color);
-  color: var(--primary-color-3);
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
 .table-card.available {
-  background-color: var(--primary-color-3);
+  background-color: var(--secondary-color);
 }
 
 .table-info {
@@ -239,6 +255,7 @@ form label {
 
 .modal-content--order {
   width: 1000px;
+  padding: 1.5rem 3rem;
 }
 
 .close-button {
@@ -248,26 +265,17 @@ form label {
   font-size: 20px;
   cursor: pointer;
 }
-
+.menu {
+  border: 2px solid var(--primary-color);
+  border-radius: 15px;
+  padding: 1rem
+}
 .menu-items {
   margin-bottom: 15px;
 }
 
 .order-summary {
   margin-top: 20px;
-}
-
-.modal-actions button {
-  padding: 10px;
-  margin-top: 10px;
-  background-color: var(--secondary-color);
-  color: var(--primary-color-2);
-  border: none;
-  cursor: pointer;
-}
-
-.modal-actions button:hover {
-  background-color: var(--secondary-color);
 }
 
 .order__container {
@@ -281,8 +289,8 @@ form label {
 }
 
 .bill {
-  background: var(--secondary-color);
-  color: var(--primary-color-2);
+  background: var(--primary-color);
+  color: var(--secondary-color);
   padding: 1rem;
   border-radius: 15px;
 }

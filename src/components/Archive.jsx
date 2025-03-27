@@ -1,7 +1,7 @@
 function Archive() {
     return (
         <div className="page">
-            <p>View and manage restaurant staff.</p>
+            <p>Manage and store all your bills here </p>
         </div>
     );
 }
