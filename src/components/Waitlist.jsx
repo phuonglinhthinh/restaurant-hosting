@@ -11,6 +11,7 @@ function Waitlist() {
         size: "",
         tablePreference: "",
         time: "",
+        date: "",
         specialRequest: "",
     });
     const handleAssign = (id) => {
@@ -71,10 +72,11 @@ function Waitlist() {
             size: "",
             tablePreference: "",
             time: "",
+            date: "",
             specialRequest: "",
         }); // Reset the form fields
         setIsAddModalOpen(false);
-        assignCustomerToTable(updatedWaitlist, tables); // Update the waitlist with the new customer
+        assignCustomerToTable(updatedWaitlist, tables);
     };
 
     const handleAddInputChange = (e) => {
@@ -155,7 +157,7 @@ function Waitlist() {
                                     value={editCustomer.tablePreference}
                                     onChange={handleInputChange}
                                 >
-                                    <option value="no prefernce">No Preference</option>
+                                    <option value="">No Preference</option>
                                     <option value="outside">Outside</option>
                                     <option value="inside">Inside</option>
                                     <option value="window">Window</option>
@@ -225,7 +227,7 @@ function Waitlist() {
                                 <p>Party Size:</p>
                                 <select
                                     name="size"
-                                    value={editCustomer.size}
+                                    value={newCustomer.size}
                                     onChange={handleInputChange}
                                 >
                                     <option value="1">1 person</option>
@@ -238,7 +240,7 @@ function Waitlist() {
                                 <p>Table Preference (Outside/Inside/Window):</p>
                                 <select
                                     name="tablePreference"
-                                    value={editCustomer.tablePreference}
+                                    value={newCustomer.tablePreference}
                                     onChange={handleInputChange}
                                 >
                                     <option value="no prefernce">No Preference</option>
