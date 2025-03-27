@@ -43,6 +43,8 @@ export const CustomerProvider = ({ children }) => {
         }))
     );
 
+    const [orders, setOrders] = useState([]); // New state to store orders
+
     const itemPrices = {
         "Classic Cheeseburger": 9.5,
         "Smokey BBQ Burger": 11.0,
@@ -56,10 +58,13 @@ export const CustomerProvider = ({ children }) => {
         setTables(updatedTables);
     };
 
-
+    // Function to add an order to the orders list
+    const addOrder = (order) => {
+        setOrders((prevOrders) => [...prevOrders, order]);
+    };
 
     return (
-        <CustomerContext.Provider value={{ waitlist, tables, assignCustomerToTable, itemPrices }}>
+        <CustomerContext.Provider value={{ waitlist, tables, assignCustomerToTable, itemPrices, orders, addOrder }}>
             {children}
         </CustomerContext.Provider>
     );

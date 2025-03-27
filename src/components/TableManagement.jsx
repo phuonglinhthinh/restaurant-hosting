@@ -50,7 +50,7 @@ function TableManagement() {
         });
     };
 
-
+    
     // Save the order for the customer
     const saveOrder = () => {
         const updatedTables = tables.map((table) =>
@@ -68,6 +68,17 @@ function TableManagement() {
         closeOrderModal();
     };
 
+    const { addOrder } = useCustomer();
+    const prepareOrders = () => {
+        const order = {
+            tableNumber: selectedTable,
+            customerName: customer?.customerName,
+            order: currentOrder,
+        };
+
+        // Add the order to the orders list in context
+        addOrder(order);
+    }
     // Mark the table as done and archive it
     const printAndCheckout = () => {
         const updatedTables = tables.map((table) =>
@@ -240,6 +251,7 @@ function TableManagement() {
                                 <p>Total Amount: €{(currentOrder.total || 0) - (contestWinner ? 10.0 : 0.0)}</p>
                             </div>
                             <div className="order__action">
+                                <button type="button" onClick={prepareOrders}>Prepare the Order</button>
                                 <button type="button" onClick={saveOrder}>Save</button>
                                 <button type="button" onClick={printAndCheckout}>Print and Checkout</button>
                             </div>

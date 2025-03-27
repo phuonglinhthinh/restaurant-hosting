@@ -275,15 +275,26 @@ form label {
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
+
 .order__action {
   grid-column: 3;
 }
+
 .bill {
   background: var(--secondary-color);
   color: var(--primary-color-2);
   padding: 1rem;
   border-radius: 15px;
 }
+
+/* Order page */
+.order-item {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1rem;
+}
+
 /* #root {
   max-width: 1280px;
   margin: 0 auto;
