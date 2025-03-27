@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useCustomer } from "../CustomerContext";
 
 function TableManagement() {
-    const { tables, waitlist, assignCustomerToTable, itemPrices } = useCustomer();
+    const { tables, waitlist, assignCustomerToTable, menu } = useCustomer();
     const [currentOrder, setCurrentOrder] = useState({});
     const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
     const [selectedTable, setSelectedTable] = useState(null);
@@ -37,8 +37,15 @@ function TableManagement() {
 
             // Recalculate the total based on the updated order
             updatedOrder.total = Object.keys(updatedOrder).reduce((total, key) => {
-                if (key !== "total") {
-                    total += updatedOrder[key] * itemPrices[key];
+                // Find the category of the item and get the price
+                const itemCategory = Object.keys(menu).find(category =>
+                    menu[category].some(menuItem => menuItem.name === key)
+                );
+
+                const menuItem = menu[itemCategory]?.find(menuItem => menuItem.name === key);
+
+                if (menuItem) {
+                    total += updatedOrder[key] * menuItem.price; // Calculate price for each item
                 }
                 return total;
             }, 0);
@@ -202,36 +209,48 @@ function TableManagement() {
                                 </label>
                             </form>
                             <div className="menu">
-                                <h4>Order Items</h4>
-                                <label>
-                                    <p>Signature Burgers:</p>
-                                    <button onClick={() => handleOrderChange("Classic Cheeseburger", "subtract")}>-</button>
-                                    Classic Cheeseburger
-                                    <button onClick={() => handleOrderChange("Classic Cheeseburger", "add")}>+</button>
-                                </label>
-                                <label>
-                                    <p>Sides:</p>
-                                    <button onClick={() => handleOrderChange("Onion Rings", "subtract")}>-</button>
-                                    Onion Rings
-                                    <button onClick={() => handleOrderChange("Onion Rings", "add")}>+</button>
-                                </label>
-                                <label>
-                                    <p>Desserts:</p>
-                                    <button onClick={() => handleOrderChange("Oreo Cheesecake", "subtract")}>-</button>
-                                    Oreo Cheesecake
-                                    <button onClick={() => handleOrderChange("Oreo Cheesecake", "add")}>+</button>
-                                </label>
+                                {Object.keys(menu).map((category) => (
+                                    <div key={category}>
+                                        <h5>{category.charAt(0).toUpperCase() + category.slice(1)}</h5>
+                                        {menu[category].map((item) => (
+                                            <label key={item.name}>
+                                                <p>{item.name}</p>
+                                                <button
+                                                    onClick={() => handleOrderChange(item.name, "subtract")}
+                                                    disabled={!currentOrder[item.name] || currentOrder[item.name] <= 0}
+                                                >
+                                                    -
+                                                </button>
+                                                {currentOrder[item.name] || 0}
+                                                <button onClick={() => handleOrderChange(item.name, "add")}>+</button>
+                                            </label>
+                                        ))}
+                                    </div>
+                                ))}
                             </div>
                             <div className="bill">
                                 <h4>Bill</h4>
                                 <div>
-                                    {Object.keys(currentOrder).map((item) =>
-                                        item !== "total" ? (
-                                            <p key={item}>
-                                                {item} x{currentOrder[item]} = €{(currentOrder[item] * itemPrices[item]).toFixed(2)}
-                                            </p>
-                                        ) : null
-                                    )}
+                                    {Object.keys(currentOrder).map((item) => {
+                                        // Skip the 'total' key, it's calculated separately
+                                        if (item === "total") return null;
+
+                                        // Find the category for the item and get the item details
+                                        const itemCategory = Object.keys(menu).find(category =>
+                                            menu[category].some(menuItem => menuItem.name === item)
+                                        );
+
+                                        const menuItem = menu[itemCategory]?.find(menuItem => menuItem.name === item);
+
+                                        if (menuItem) {
+                                            return (
+                                                <p key={item}>
+                                                    {item} x{currentOrder[item]} = €{(currentOrder[item] * menuItem.price).toFixed(2)}
+                                                </p>
+                                            );
+                                        }
+                                        return null;
+                                    })}
                                 </div>
                                 <p>Discount: €{contestWinner ? 10.0 : 0.0}</p>
                                 <p>Total Amount: €{(currentOrder.total || 0) - (contestWinner ? 10.0 : 0.0)}</p>

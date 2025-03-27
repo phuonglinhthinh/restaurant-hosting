@@ -1,6 +1,6 @@
 import { useCustomer } from "../CustomerContext";
 function Orders() {
-    const { orders } = useCustomer(); // Get orders from context
+    const { orders} = useCustomer(); // Get orders from context
 
     // Group items by name and sum up the quantities
     const groupedOrders = orders.map((order) => {

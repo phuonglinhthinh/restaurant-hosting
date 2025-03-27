@@ -257,7 +257,7 @@ form label {
 }
 
 .modal-content--order {
-  width: 1000px;
+  width: 100%;
   padding: 1.5rem 3rem;
 }
 
@@ -272,7 +272,11 @@ form label {
 .menu {
   border: 2px solid var(--primary-color);
   border-radius: 15px;
-  padding: 1rem
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  justify-items: center;
 }
 
 .menu-items {
@@ -285,7 +289,7 @@ form label {
 
 .order__container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 3fr 1fr;
   gap: 1rem;
 }
 
