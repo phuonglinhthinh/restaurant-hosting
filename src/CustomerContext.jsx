@@ -44,6 +44,7 @@ export const CustomerProvider = ({ children }) => {
     );
 
     const [orders, setOrders] = useState([]); // New state to store orders
+    const [archivedOrders, setArchivedOrders] = useState([]); 
 
     const menu = {
         mains: [
@@ -80,8 +81,15 @@ export const CustomerProvider = ({ children }) => {
         setOrders((prevOrders) => [...prevOrders, order]);
     };
 
+    // Function to archive an order
+    const archiveOrder = (order) => {
+        setArchivedOrders((prevArchivedOrders) => [...prevArchivedOrders, order]);
+    };
+
     return (
-        <CustomerContext.Provider value={{ waitlist, tables, assignCustomerToTable, orders, addOrder, menu }}>
+        <CustomerContext.Provider value={{
+            waitlist, tables, assignCustomerToTable, orders, addOrder, archivedOrders,
+            archiveOrder, menu }}>
             {children}
         </CustomerContext.Provider>
     );

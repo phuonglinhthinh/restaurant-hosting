@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useCustomer } from "../CustomerContext";
 
 function TableManagement() {
-    const { tables, waitlist, assignCustomerToTable, menu } = useCustomer();
+    const { tables, waitlist, assignCustomerToTable, menu, archiveOrder } = useCustomer();
     const [currentOrder, setCurrentOrder] = useState({});
+    const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
     const [isOrderModalOpen, setIsOrderModalOpen] = useState(false);
     const [selectedTable, setSelectedTable] = useState(null);
     const [contestWinner, setContestWinner] = useState(false);
@@ -20,9 +21,12 @@ function TableManagement() {
         setSelectedTable(null);
     };
 
+    const closeCheckoutModal = () => {
+        setIsCheckoutModalOpen(false);
+    };
+
     // Handle order item changes
     const handleOrderChange = (item, action) => {
-        // const price = itemPrices[item];
         setCurrentOrder((prevOrder) => {
             const updatedOrder = { ...prevOrder };
 
@@ -83,21 +87,30 @@ function TableManagement() {
         // Add the order to the orders list in context
         addOrder(order);
     }
-    // Mark the table as done and archive it
-    const printAndCheckout = () => {
+
+    const handleCheckout = () => {
+        setIsCheckoutModalOpen(true); // Open checkout modal to review the bill
+    };
+
+    const archiveOrderDetails = () => {
+        const orderDetails = {
+            tableNumber: selectedTable,
+            customerName: customer?.customerName,
+            order: currentOrder,
+        };
+        archiveOrder(orderDetails);  // Archive the order
+        closeCheckoutModal();  // Close the checkout modal
+
+        // After archiving, reset the table and mark it as available again
         const updatedTables = tables.map((table) =>
             table.tableNumber === selectedTable
                 ? {
                     ...table,
-                    customer: {
-                        ...table.customer,
-                        isArchived: true,
-                    },
+                    customer: null,  // Make the table available again by resetting customer
                 }
                 : table
         );
         assignCustomerToTable(waitlist, updatedTables);
-        closeOrderModal();
     };
 
     const selectedTableData = tables.find((table) => table.tableNumber === selectedTable);
@@ -129,8 +142,8 @@ function TableManagement() {
                                 <button onClick={() => openOrderModal(table.tableNumber)}>
                                     Order
                                 </button>
-                                <button onClick={() => printAndCheckout(table.tableNumber)}>
-                                    Archive
+                                <button onClick={handleCheckout}>
+                                    Print and Checkout
                                 </button>
                             </div>
                         )}
@@ -258,13 +271,51 @@ function TableManagement() {
                             <div className="order__action">
                                 <button onClick={prepareOrders}>Prepare the Order</button>
                                 <button onClick={saveOrder}>Save</button>
-                                <button onClick={printAndCheckout}>Print and Checkout</button>
                             </div>
                         </div>
                     </div>
                 </div >
-            )
-            }
+            )}
+            {isCheckoutModalOpen && (
+                <div className="modal">
+                    <div className="modal-content">
+                        <span className="close-button" onClick={closeCheckoutModal}>
+                            &times;
+                        </span>
+                        <h3>Review the Bill</h3>
+                        <div className="bill">
+                            <h4>Bill</h4>
+                            <div>
+                                <p>Table: {selectedTable}</p>
+                                <p>Customer: {customer?.customerName}</p>
+                                {Object.keys(currentOrder).map((item) => {
+                                    // Skip the 'total' key, it's calculated separately
+                                    if (item === "total") return null;
+
+                                    // Find the category for the item and get the item details
+                                    const itemCategory = Object.keys(menu).find(category =>
+                                        menu[category].some(menuItem => menuItem.name === item)
+                                    );
+
+                                    const menuItem = menu[itemCategory]?.find(menuItem => menuItem.name === item);
+
+                                    if (menuItem) {
+                                        return (
+                                            <p key={item}>
+                                                {item} x{currentOrder[item]} = €{(currentOrder[item] * menuItem.price).toFixed(2)}
+                                            </p>
+                                        );
+                                    }
+                                    return null;
+                                })}
+                            </div>
+                            <p>Discount: €{contestWinner ? 10.0 : 0.0}</p>
+                            <p>Total Amount: €{(currentOrder.total || 0) - (contestWinner ? 10.0 : 0.0)}</p>
+                        </div>
+                        <button onClick={archiveOrderDetails}>Archive</button>
+                    </div>
+                </div>
+            )}
         </div >
     );
 }
