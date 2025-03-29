@@ -1,7 +1,7 @@
 function Dashboard() {
     return (
         <div className="page">
-            <h2>Hello Linh, welcome back!</h2>
+            <h2>Hello, welcome back!</h2>
             <div className="dashboard-content">
                 <div className="reservations">
                     <h3>Reservations</h3>

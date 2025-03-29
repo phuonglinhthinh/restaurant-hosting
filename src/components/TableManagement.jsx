@@ -58,9 +58,11 @@ function TableManagement() {
         });
     };
 
-    
+
     // Save the order for the customer
     const saveOrder = () => {
+        const selectedTableData = tables.find((table) => table.tableNumber === selectedTable);
+        console.log("Saving Order - Table Data:", selectedTableData);
         const updatedTables = tables.map((table) =>
             table.tableNumber === selectedTable
                 ? {
@@ -88,7 +90,12 @@ function TableManagement() {
         addOrder(order);
     }
 
-    const handleCheckout = () => {
+    const handleCheckout = (tableNumber) => {
+        setSelectedTable(tableNumber);
+        const table = tables.find((t) => t.tableNumber === tableNumber);
+        if (table?.customer?.order) {
+            setCurrentOrder(table.customer.order); // Sync the currentOrder with the table's saved order
+        }
         setIsCheckoutModalOpen(true); // Open checkout modal to review the bill
     };
 
@@ -142,7 +149,7 @@ function TableManagement() {
                                 <button onClick={() => openOrderModal(table.tableNumber)}>
                                     Order
                                 </button>
-                                <button onClick={handleCheckout}>
+                                <button onClick={() => handleCheckout(table.tableNumber)}>
                                     Print and Checkout
                                 </button>
                             </div>
@@ -279,6 +286,7 @@ function TableManagement() {
             {isCheckoutModalOpen && (
                 <div className="modal">
                     <div className="modal-content">
+                        {console.log("Checkout Modal Data:", customer, currentOrder)}
                         <span className="close-button" onClick={closeCheckoutModal}>
                             &times;
                         </span>
@@ -287,7 +295,7 @@ function TableManagement() {
                             <h4>Bill</h4>
                             <div>
                                 <p>Table: {selectedTable}</p>
-                                <p>Customer: {customer?.customerName}</p>
+                                <p>Customer: {selectedTableData?.customer?.customerName || "Unknown"}</p>
                                 {Object.keys(currentOrder).map((item) => {
                                     // Skip the 'total' key, it's calculated separately
                                     if (item === "total") return null;

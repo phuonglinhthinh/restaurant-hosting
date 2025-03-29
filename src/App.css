@@ -111,9 +111,13 @@ input:focus {
 
 /* Topbar */
 .topbar {
-  color: var(--primary-color);
+  color: var(--secondary-color);
   background-color: var(--secondary-color);
   padding: 3rem 2.5rem 1rem 2.5rem;
+  background-image: url("../public/assets/img/burger-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .topbar-icons {
