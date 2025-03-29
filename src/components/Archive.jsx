@@ -4,9 +4,9 @@ function Archive() {
 
     return (
         <div className="page">
-            <h2>Archived Orders</h2>
+            <p>All your bills will be archived here:</p>
             {archivedOrders.length === 0 ? (
-                <p>No archived orders yet.</p>
+                <p>No archived bills yet.</p>
             ) : (
                 archivedOrders.map((order, index) => (
                     <div key={index}>

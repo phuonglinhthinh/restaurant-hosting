@@ -14,7 +14,6 @@ import "./App.css";
 function App() {
   const [currentPage, setCurrentPage] = useState("Dashboard");
 
-  // Function to render the selected page
   const renderPage = () => {
     switch (currentPage) {
       case "Dashboard":

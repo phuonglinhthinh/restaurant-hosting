@@ -1,8 +1,7 @@
-import { useCustomer } from "../CustomerContext"; // Import the context
+import { useCustomer } from "../CustomerContext";
 
 function Menu() {
-    const { menu } = useCustomer(); // Access the menu from the context
-
+    const { menu } = useCustomer();
     return (
         <div className="page">
             <div className="menu__container">
