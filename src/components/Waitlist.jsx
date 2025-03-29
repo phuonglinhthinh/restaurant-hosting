@@ -21,7 +21,6 @@ function Waitlist() {
         if (availableTables.length > 0) {
             const randomTable = availableTables[Math.floor(Math.random() * availableTables.length)];
 
-            // Assign customer to the random table
             const updatedTables = tables.map((table) =>
                 table.tableNumber === randomTable.tableNumber
                     ? { ...table, customer: { ...customerToAssign, isAssigned: true } }
@@ -31,18 +30,15 @@ function Waitlist() {
             // Remove customer from waitlist
             const updatedWaitlist = waitlist.filter((customer) => customer.id !== id);
 
-            // Update the state
             assignCustomerToTable(updatedWaitlist, updatedTables);
         }
     };
 
-    // Handle canceling the customer from the waitlist
     const handleCancel = (id) => {
         const updatedWaitlist = waitlist.filter((customer) => customer.id !== id);
-        assignCustomerToTable(updatedWaitlist, tables); // Update waitlist
+        assignCustomerToTable(updatedWaitlist, tables);
     };
 
-    // Handle editing the customer information
     const handleEdit = (id) => {
         const customerToEdit = waitlist.find((customer) => customer.id === id);
         setEditCustomer(customerToEdit);
@@ -61,9 +57,9 @@ function Waitlist() {
         const { name, value } = e.target;
         setEditCustomer({ ...editCustomer, [name]: value });
     };
-    // Handle adding a new customer
+
     const handleAddNewCustomer = () => {
-        const newId = waitlist.length + 1; // Create a unique ID for the new customer
+        const newId = waitlist.length + 1;
         const newCustomerData = { ...newCustomer, id: newId, isAssigned: false };
 
         const updatedWaitlist = [...waitlist, newCustomerData];
@@ -74,7 +70,7 @@ function Waitlist() {
             time: "",
             date: "",
             specialRequest: "",
-        }); // Reset the form fields
+        });
         setIsAddModalOpen(false);
         assignCustomerToTable(updatedWaitlist, tables);
     };

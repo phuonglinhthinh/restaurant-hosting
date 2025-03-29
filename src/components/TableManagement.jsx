@@ -9,13 +9,13 @@ function TableManagement() {
     const [selectedTable, setSelectedTable] = useState(null);
     const [contestWinner, setContestWinner] = useState(false);
 
-    // Open order modal
+    const [isButtonActive, setIsButtonActive] = useState(false);
+
     const openOrderModal = (tableNumber) => {
         setSelectedTable(tableNumber);
         setIsOrderModalOpen(true);
     };
 
-    // Close order modal
     const closeOrderModal = () => {
         setIsOrderModalOpen(false);
         setSelectedTable(null);
@@ -25,23 +25,19 @@ function TableManagement() {
         setIsCheckoutModalOpen(false);
     };
 
-    // Handle order item changes
     const handleOrderChange = (item, action) => {
         setCurrentOrder((prevOrder) => {
             const updatedOrder = { ...prevOrder };
 
-            // Check if the item is already in the order
             if (action === "add") {
                 updatedOrder[item] = updatedOrder[item] ? updatedOrder[item] + 1 : 1;
             } else if (action === "subtract" && updatedOrder[item] > 1) {
                 updatedOrder[item] = updatedOrder[item] - 1;
             } else if (action === "subtract" && updatedOrder[item] === 1) {
-                delete updatedOrder[item];  // Remove item from order if count is 0
+                delete updatedOrder[item];
             }
 
-            // Recalculate the total based on the updated order
             updatedOrder.total = Object.keys(updatedOrder).reduce((total, key) => {
-                // Find the category of the item and get the price
                 const itemCategory = Object.keys(menu).find(category =>
                     menu[category].some(menuItem => menuItem.name === key)
                 );
@@ -49,7 +45,7 @@ function TableManagement() {
                 const menuItem = menu[itemCategory]?.find(menuItem => menuItem.name === key);
 
                 if (menuItem) {
-                    total += updatedOrder[key] * menuItem.price; // Calculate price for each item
+                    total += updatedOrder[key] * menuItem.price;
                 }
                 return total;
             }, 0);
@@ -58,11 +54,7 @@ function TableManagement() {
         });
     };
 
-
-    // Save the order for the customer
     const saveOrder = () => {
-        const selectedTableData = tables.find((table) => table.tableNumber === selectedTable);
-        console.log("Saving Order - Table Data:", selectedTableData);
         const updatedTables = tables.map((table) =>
             table.tableNumber === selectedTable
                 ? {
@@ -86,17 +78,17 @@ function TableManagement() {
             order: currentOrder,
         };
 
-        // Add the order to the orders list in context
         addOrder(order);
+        setIsButtonActive(true);
     }
 
     const handleCheckout = (tableNumber) => {
         setSelectedTable(tableNumber);
         const table = tables.find((t) => t.tableNumber === tableNumber);
         if (table?.customer?.order) {
-            setCurrentOrder(table.customer.order); // Sync the currentOrder with the table's saved order
+            setCurrentOrder(table.customer.order);
         }
-        setIsCheckoutModalOpen(true); // Open checkout modal to review the bill
+        setIsCheckoutModalOpen(true);
     };
 
     const archiveOrderDetails = () => {
@@ -105,15 +97,14 @@ function TableManagement() {
             customerName: customer?.customerName,
             order: currentOrder,
         };
-        archiveOrder(orderDetails);  // Archive the order
-        closeCheckoutModal();  // Close the checkout modal
+        archiveOrder(orderDetails);
+        closeCheckoutModal();
 
-        // After archiving, reset the table and mark it as available again
         const updatedTables = tables.map((table) =>
             table.tableNumber === selectedTable
                 ? {
                     ...table,
-                    customer: null,  // Make the table available again by resetting customer
+                    customer: null,
                 }
                 : table
         );
@@ -252,10 +243,7 @@ function TableManagement() {
                                 <h4>Bill</h4>
                                 <div>
                                     {Object.keys(currentOrder).map((item) => {
-                                        // Skip the 'total' key, it's calculated separately
                                         if (item === "total") return null;
-
-                                        // Find the category for the item and get the item details
                                         const itemCategory = Object.keys(menu).find(category =>
                                             menu[category].some(menuItem => menuItem.name === item)
                                         );
@@ -276,7 +264,9 @@ function TableManagement() {
                                 <p>Total Amount: €{(currentOrder.total || 0) - (contestWinner ? 10.0 : 0.0)}</p>
                             </div>
                             <div className="order__action">
-                                <button onClick={prepareOrders}>Prepare the Order</button>
+                                <button
+                                    onClick={prepareOrders}
+                                    className={isButtonActive ? "active" : ""}>Prepare the Order</button>
                                 <button onClick={saveOrder}>Save</button>
                             </div>
                         </div>
@@ -290,17 +280,14 @@ function TableManagement() {
                         <span className="close-button" onClick={closeCheckoutModal}>
                             &times;
                         </span>
-                        <h3>Review the Bill</h3>
+                        <h3>Check out</h3>
                         <div className="bill">
                             <h4>Bill</h4>
                             <div>
                                 <p>Table: {selectedTable}</p>
                                 <p>Customer: {selectedTableData?.customer?.customerName || "Unknown"}</p>
                                 {Object.keys(currentOrder).map((item) => {
-                                    // Skip the 'total' key, it's calculated separately
                                     if (item === "total") return null;
-
-                                    // Find the category for the item and get the item details
                                     const itemCategory = Object.keys(menu).find(category =>
                                         menu[category].some(menuItem => menuItem.name === item)
                                     );
