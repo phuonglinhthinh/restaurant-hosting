@@ -1,7 +1,7 @@
 function Sidebar({ setCurrentPage }) {
     return (
         <div className="sidebar">
-            <img src="/assets/img/avatar.svg" alt="logo" />
+            <img src="assets/img/avatar.svg" alt="logo" />
             <nav>
                 <ul>
                     <li className="sidebar__link" onClick={() => setCurrentPage("Dashboard")}>Dashboard</li>
